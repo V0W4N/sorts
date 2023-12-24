@@ -1,4 +1,4 @@
-import radix, quicksort, insertion, countSort, mergeSort
+import radix, quicksort, insertion, countSort, mergeSort, heapsort
 import time, random as r
 import matplotlib.pyplot as plt
 
@@ -49,6 +49,10 @@ class Sorts:
         Printif(insertion.insertionSort(self.arr.copy()), self.print)
 
     @Timer
+    def heapSort(self):
+        Printif(heapsort.heapSort(self.arr.copy()), self.print)
+
+    @Timer
     def countSort(self):
         Printif(countSort.countSort(self.arr.copy()), self.print)
 
@@ -58,21 +62,20 @@ class Sorts:
 
 
 chooseSorts = {
-    "radixLSD": True,
     "quickSort": True,
-    "insertionSort": True,
-    "countSort": True,
-    "mergeSort": True
+    "heapSort": True,
+    "radixLSD": True
 }
 
 if __name__ == "__main__":
     times = makeTimeArray(chooseSorts)
-    repetitions = 7
+    repetitions = 30
     step = 1000
+    digits = 3
 
     for n in range(1,repetitions):
-        s = Sorts(generateArr(7 , n*step)) # generate random int list (N of digits, amount)
-        #s = Sorts([21, 35, 56, 41, 24, 88, 6, 11, 57, 15]) # add ",True)" to display sort outputs
+        s = Sorts(generateArr(digits , n*step), True) # generate random int list (N of digits, amount)
+        #s = Sorts([1, 99, 33, 5, 3, 37, 44, 32, 57, 15]) # add ",True)" to display sort outputs
         for name in times.keys():
             times[name].append(eval(f"s.{name}()"))
 
